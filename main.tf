@@ -1,7 +1,7 @@
 
 module "labels" {
   source      = "cypik/labels/azure"
-  version     = "1.0.2"
+  version     = "1.0.3"
   name        = var.name
   environment = var.environment
   managedby   = var.managedby
@@ -54,13 +54,12 @@ resource "azurerm_private_dns_zone" "private_dns_zone" {
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_vnet_link" {
-  count                 = var.enabled && var.private_dns ? 1 : 0
-  name                  = "vnet-link-${random_id.this.hex}"
-  resource_group_name   = var.resource_group_name
-  private_dns_zone_name = join("", azurerm_private_dns_zone.private_dns_zone[*].name)
-  registration_enabled  = var.private_registration_enabled
-  virtual_network_id    = var.virtual_network_id
-  tags                  = module.labels.tags
+  count                = var.enabled && var.private_dns ? 1 : 0
+  name                 = "vnet-link-${random_id.this.hex}"
+  private_dns_zone_id  = join("", azurerm_private_dns_zone.private_dns_zone[*].id)
+  registration_enabled = var.private_registration_enabled
+  virtual_network_id   = var.virtual_network_id
+  tags                 = module.labels.tags
 }
 
 resource "azurerm_dns_a_record" "records_a" {

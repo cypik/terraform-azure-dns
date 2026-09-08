@@ -9,7 +9,7 @@ locals {
 
 module "resource_group" {
   source      = "cypik/resource-group/azure"
-  version     = "1.0.2"
+  version     = "1.0.3"
   name        = "app"
   environment = "tested"
   location    = "North Europe"
@@ -18,7 +18,7 @@ module "resource_group" {
 
 module "vnet" {
   source              = "cypik/vnet/azure"
-  version             = "1.0.2"
+  version             = "1.0.3"
   name                = "app"
   environment         = "test"
   resource_group_name = module.resource_group.resource_group_name
@@ -29,7 +29,7 @@ module "vnet" {
 
 module "dns_zone" {
   depends_on                   = [module.resource_group, module.vnet]
-  source                       = "../.."
+  source                       = "../"
   name                         = local.name
   environment                  = local.environment
   resource_group_name          = module.resource_group.resource_group_name

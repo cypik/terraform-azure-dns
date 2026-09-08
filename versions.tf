@@ -1,13 +1,13 @@
 terraform {
-  required_version = ">= 1.9.5"
+  required_version = ">= 1.15.8"
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 4.2.0"
+      version = ">= 5.4.0"
     }
     random = {
       source  = "hashicorp/random"
-      version = ">= 3.1.0"
+      version = ">= 3.9.0"
     }
   }
 }
